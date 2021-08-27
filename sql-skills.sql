@@ -85,5 +85,77 @@ SELECT alb.title, a.name FROM album alb
 JOIN artist a 
 ON alb.artist_id = a.artist_id;
 
+-- Extra Credit
+-- SQL
+-- Artist Table
 
--- Make sure to add and commit your SQL file to the respository for this assessment on Github.
+-- Select 10 artists in reverse alphabetical order.
+
+SELECT * FROM artist
+ORDER BY name DESC
+LIMIT 10;
+
+-- Select all artists that start with the word ‘Black’.
+
+SELECT * FROM artist
+WHERE name LIKE 'Black%';
+
+-- Select all artists that contain the word ‘Black’.
+
+SELECT * FROM artist
+WHERE name LIKE '%Black%';
+
+-- Employee Table
+
+-- Find the birthdate for the youngest employee.
+
+SELECT MAX(birth_date) FROM employee
+
+-- Find the birthdate for the oldest employee.
+
+SELECT MIN(birth_date) FROM employee
+
+-- Invoice Table
+
+-- Count how many orders were in CA, TX, or AZ (use IN).
+
+SELECT COUNT(*) FROM invoice
+WHERE billing_state IN ('CA','TX', 'AZ');
+
+-- Get the average total of the orders.
+-- I got the average total of the orders from the question above because I wasn't sure if it meant for all orders or those orders specifically.
+SELECT AVG(total) FROM invoice
+WHERE billing_state IN ('CA','TX', 'AZ');
+
+-- More Join Queries
+
+-- Get all playlist_track track_ids where the playlist name is Music.
+
+SELECT track_id FROM playlist_track
+WHERE playlist_id IN (
+SELECT playlist_id FROM playlist
+WHERE name ='Music');
+
+-- Get all track names for playlist_id 5.
+
+SELECT name FROM track 
+WHERE track_id IN(
+SELECT track_id FROM playlist_track
+WHERE playlist_id = 5 );
+
+-- Get all track names and the playlist name that they’re on ( 2 joins ).
+
+SELECT t.name AS track, p.name AS playlist FROM playlist p
+JOIN playlist_track pt
+ON p.playlist_id = pt.playlist_id
+JOIN track t
+ON t.track_id = pt.track_id;
+
+-- Get all track names and album titles that are the genre Alternative & Punk ( 2 joins ).
+
+SELECT t.name AS track, alb.title AS album FROM album alb
+JOIN track t
+ON t.album_id = alb.album_id
+JOIN genre g
+ON g.genre_id = t.genre_id
+WHERE g.name = 'Alternative & Punk';

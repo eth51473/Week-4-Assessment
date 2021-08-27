@@ -8,4 +8,14 @@ def sales_reports(log_file): # creates a function named sales_reports
         if day == "Mon":# checks if the first 3 letters = Tue, I changed it to Mon
             print(line)# only prints out for every line that is from a tuesday. Now it only shows the reports for Monday.
 
-sales_reports(log_file) #runs the function
+# Extra Credit
+
+def highMelonSales(log_file): 
+    for line in log_file: 
+        line = line.rstrip() 
+        lineSplit = line.split(' ') 
+        if int(lineSplit[len(lineSplit)-1]) > 10:
+            print(line)
+        
+highMelonSales(log_file)
+sales_reports(log_file) 
